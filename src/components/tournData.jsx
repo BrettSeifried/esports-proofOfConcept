@@ -1,12 +1,23 @@
+import { useEffect, useState } from 'react';
 import getApiData from '../services/semanticUi';
 
 export default function TournamentStats() {
-  const summaryData = getApiData();
-  console.log(summaryData);
+  const [sumData, setSumData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const respData = await getApiData();
+      setSumData(respData.data);
+    };
+    fetchData();
+  }, []);
+
+  //   const { summaryData } = getApiData();
+  console.log(sumData);
   return (
     <>
       <h1>Place holder stats</h1>
-      <a>{summaryData}</a>
+      <h3>{sumData}</h3>
     </>
   );
 }
